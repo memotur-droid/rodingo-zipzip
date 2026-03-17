@@ -206,6 +206,7 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
 
   <div class="admin-section">💰 Ekonomi</div>
   <button class="admin-btn" id="adm-coins"><span><span class="ab-icon">⭐</span>Yıldız Ekle (+10.000)</span><span class="ab-val" id="adm-coins-val"></span></button>
+  <button class="admin-btn" id="adm-customcoins"><span><span class="ab-icon">✏️</span>İstediğin Kadar Yıldız</span></button>
   <button class="admin-btn" id="adm-maxcoins"><span><span class="ab-icon">💎</span>Sınırsız Yıldız (999.999)</span></button>
   <button class="admin-btn" id="adm-resetcoins"><span><span class="ab-icon">🗑️</span>Yıldızları Sıfırla</span></button>
 
@@ -224,6 +225,47 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
   <button class="admin-btn" id="adm-slowmo"><span><span class="ab-icon">🐌</span>Yavaş Çekim</span><span class="ab-val" id="adm-slow-val">KAPALI</span></button>
   <button class="admin-btn" id="adm-superspeed"><span><span class="ab-icon">💨</span>Süper Hız</span><span class="ab-val" id="adm-speed-val">KAPALI</span></button>
   <button class="admin-btn" id="adm-allpower"><span><span class="ab-icon">⚡</span>Tüm Güçleri Aktif Et</span></button>
+  <button class="admin-btn" id="adm-noclip"><span><span class="ab-icon">👻</span>Hayalet Modu (Düşme Yok)</span><span class="ab-val" id="adm-noclip-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-megajump"><span><span class="ab-icon">🦘</span>Mega Zıplama (3x)</span><span class="ab-val" id="adm-mega-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-autocoin"><span><span class="ab-icon">🤑</span>Otomatik Yıldız Toplama</span><span class="ab-val" id="adm-auto-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-nodino"><span><span class="ab-icon">🦖</span>Dinazoru Kapat</span><span class="ab-val" id="adm-nodino-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-bigplat"><span><span class="ab-icon">📏</span>Geniş Platformlar</span><span class="ab-val" id="adm-bigplat-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-lowgrav"><span><span class="ab-icon">🌙</span>Düşük Yerçekimi</span><span class="ab-val" id="adm-lowgrav-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-coinmult"><span><span class="ab-icon">💰</span>Yıldız Çarpanı (x5)</span><span class="ab-val" id="adm-coinmult-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-skipbtn"><span><span class="ab-icon">⏭️</span>Bölüm Atla</span></button>
+  <button class="admin-btn" id="adm-completeall"><span><span class="ab-icon">🏁</span>Tüm Bölümleri Tamamla</span></button>
+
+  <div class="admin-section">👥 Kullanıcı Yönetimi</div>
+  <button class="admin-btn" id="adm-userlist"><span><span class="ab-icon">📋</span>Tüm Kullanıcıları Göster</span></button>
+  <button class="admin-btn" id="adm-resetuser"><span><span class="ab-icon">🔄</span>Kullanıcı İlerlemesini Sıfırla</span></button>
+  <button class="admin-btn" id="adm-givecoinsuser"><span><span class="ab-icon">🎁</span>Kullanıcıya Yıldız Ver</span></button>
+  <div id="userListPanel" style="width:90%;max-width:400px;display:none"></div>
+
+  <div class="admin-section">📊 İstatistikler</div>
+  <div id="adminStats" style="width:90%;max-width:400px;background:#1e1b4b;border:2px solid #312e81;border-radius:12px;padding:14px;margin:5px 0"></div>
+
+  <div class="admin-section">🔨 Kullanıcı Banlama</div>
+  <div style="width:90%;max-width:400px;margin:4px 0">
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <input class="login-input" id="banUserInput" type="text" placeholder="Kullanıcı adı" style="flex:1;margin:0">
+      <select class="admin-select" id="banDays" style="width:auto;margin:0;min-width:100px">
+        <option value="1">1 gün</option>
+        <option value="3">3 gün</option>
+        <option value="7" selected>7 gün</option>
+        <option value="14">14 gün</option>
+        <option value="30">30 gün</option>
+        <option value="90">90 gün</option>
+        <option value="365">1 yıl</option>
+        <option value="9999">Süresiz</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <input class="login-input" id="banReason" type="text" placeholder="Ban sebebi (opsiyonel)" style="flex:1;margin:0">
+      <button class="admin-btn" id="adm-ban" style="width:auto;margin:0;background:#dc2626;border-color:#991b1b;white-space:nowrap;padding:10px 16px"><span>🔨 Banla</span></button>
+    </div>
+  </div>
+  <div style="font-size:13px;font-weight:600;color:#ef4444;margin:10px 0 6px;width:90%;max-width:400px">Banlı Kullanıcılar</div>
+  <div id="banList" style="width:90%;max-width:400px"></div>
 
   <div class="admin-section">⚠️ Tehlikeli</div>
   <button class="admin-btn" id="adm-reset" style="border-color:#dc2626"><span><span class="ab-icon">💀</span>Tüm Kayıtları Sil</span><span class="ab-val" style="color:#ef4444">DİKKAT!</span></button>
@@ -246,6 +288,35 @@ function getUsers() {
   try { return JSON.parse(localStorage.getItem("yy_users"))||{}; } catch { return {}; }
 }
 function saveUsers(u) { localStorage.setItem("yy_users", JSON.stringify(u)); }
+
+function getBans() {
+  try { return JSON.parse(localStorage.getItem("yy_bans"))||{}; } catch { return {}; }
+}
+function saveBans(b) { localStorage.setItem("yy_bans", JSON.stringify(b)); }
+
+function checkBan(username) {
+  const bans = getBans();
+  const ban = bans[username];
+  if(!ban) return null;
+  const now = Date.now();
+  if(ban.until !== -1 && now > ban.until) {
+    delete bans[username];
+    saveBans(bans);
+    return null;
+  }
+  return ban;
+}
+
+function formatBanRemaining(until) {
+  if(until === -1) return "Süresiz";
+  const diff = until - Date.now();
+  if(diff <= 0) return "Süresi doldu";
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  if(days > 0) return days + " gün " + hours + " saat kaldı";
+  const mins = Math.floor((diff % 3600000) / 60000);
+  return hours + " saat " + mins + " dk kaldı";
+}
 
 // Admin hesabını otomatik oluştur
 (function initAdmin(){
@@ -287,6 +358,13 @@ function doLogin() {
   } else {
     if(!users[user]) { err.textContent="Kullanıcı bulunamadı!"; return; }
     if(users[user].pass!==pass) { err.textContent="Parola yanlış!"; return; }
+    // Ban kontrolü
+    const ban = checkBan(user);
+    if(ban && !users[user].isAdmin) {
+      const remaining = formatBanRemaining(ban.until);
+      err.textContent="🚫 Hesabın banlandı! " + remaining + (ban.reason ? " Sebep: "+ban.reason : "");
+      return;
+    }
     currentUser = {username:user, isAdmin:!!users[user].isAdmin};
     loadSv();
     mode = "menu";
@@ -466,6 +544,7 @@ let spd, dist, rCoins, camX, frame;
 let fx; // {shield, magnet, slow}
 let hintTimer;
 let curLevel, levelDist, finishSpawned;
+let dino; // {x, y, speed, frame, roar}
 
 // ========== INIT ==========
 function init() {
@@ -486,6 +565,7 @@ function init() {
   if(curLevel===undefined) curLevel = 0;
   levelDist = 0;
   finishSpawned = false;
+  dino = {x:-80, speed:0, frame:0, roar:0, active:false};
 
   // İlk platform - oyuncunun altında çok geniş
   plats.push({x:0, y:groundY, w:400, type:"normal", t:0, mp:0, mr:0, by:groundY, broken:false});
@@ -547,6 +627,49 @@ const LEVELS = [
   {num:40, name:"TANRI SEVİYESİ", target:666, reward:1000,gap:92, gapR:90, minW:26, maxW:48, yVar:125,special:0.95, spdMul:1.75},
 ];
 
+// Bölüm 41-150: Otomatik üret
+const LEVEL_NAMES_POOL = [
+  "Alev Yağmuru","Buzdan Köprü","Zehir Vadisi","Gök Gürültüsü","Kaos Koridoru",
+  "Rüya Avcısı","Sis Perdesi","Kanlı Ay","Demir Yumruk","Fırtına Gözü",
+  "Yılan Geçidi","Kartal Uçuşu","Kurt Uluma","Bataklık","Çığ Düşmesi",
+  "Ateş Çemberi","Hayalet Gemi","Kristal Mağara","Kum Fırtınası","Tsunami",
+  "Yıldız Düşüşü","Işık Hızı","Kuantum Sıçrama","Paralel Evren","Boyut Kapısı",
+  "Zaman Tüneli","Kabus Sokağı","Gölge Avcısı","Ölü Topraklar","Kızıl Şafak",
+  "Çelik Fırtına","Buz Kılıcı","Alev Dansı","Ruh Kapanı","Karanlık Tapınak",
+  "Deniz Canavarı","Gökyüzü Kalesi","Yeraltı Nehri","Ay Tutulması","Güneş Patlaması",
+  "Elmas Madeni","Obsidyen Kapı","Zümrüt Orman","Yakut Çölü","Safir Okyanus",
+  "Ametist Dağı","Altın Tapınak","Platin Arena","Titan Kalesi","Mitril Köprü",
+  "Ejderha Nefesi","Feniks Yükselişi","Grifon Saldırısı","Unicorn Koşusu","Basilisk Bakışı",
+  "Hydra Savaşı","Cerberus Kapısı","Minotaur Labirenti","Medusa Mağarası","Pegasus Uçuşu",
+  "Kahin Tapınağı","Olimpos Zirvesi","Hades Derinliği","Poseidon Dalgası","Zeus Şimşeği",
+  "Ares Arenası","Athena Kalkanı","Hermes Hızı","Apollo Işığı","Artemis Oku",
+  "Kronos Saati","Atlas Yükü","Prometheus Ateşi","Pandora Kutusu","Achilles Topuğu",
+  "Odysseus Yolculuğu","Herakles Gücü","Perseus Kılıcı","Theseus Cesareti","İkarus Kanatları",
+  "Sisifos Kayası","Tantalos Cezası","Nemesis İntikamı","Fortuna Çarkı","Morpheus Rüyası",
+  "Nyx Karanlığı","Helios Arabası","Selene Gümüşü","Eros Oku","Thanatos Dokunuşu",
+  "Chaos Başlangıcı","Gaia Öfkesi","Uranus Derinliği","Tartaros Dibi","Elysium Barışı",
+  "Styx Nehri","Lethe Unutuşu","Acheron Acısı","Phlegethon Ateşi","Cocytus Buzulu",
+  "Son Efsane","Sonsuz Döngü","Evrenin Sonu","Büyük Patlama","MUTLAK GÜÇ",
+];
+
+for(let i=41; i<=680; i++) {
+  const t = (i-41) % LEVEL_NAMES_POOL.length;
+  const progress = Math.min(1, (i-40)/640); // 0..1
+  LEVELS.push({
+    num: i,
+    name: LEVEL_NAMES_POOL[t] + (i>150?" "+Math.ceil((i-40)/LEVEL_NAMES_POOL.length):""),
+    target: Math.floor(200 + progress * 500),
+    reward: Math.floor(100 + progress * 1500),
+    gap: Math.floor(40 + progress * 50),
+    gapR: Math.floor(30 + progress * 55),
+    minW: Math.max(22, Math.floor(120 - progress * 95)),
+    maxW: Math.max(35, Math.floor(180 - progress * 130)),
+    yVar: Math.floor(40 + progress * 90),
+    special: Math.min(0.95, 0.1 + progress * 0.85),
+    spdMul: Math.min(2.0, 0.8 + progress * 1.2),
+  });
+}
+
 function getCurrentLevel() {
   return LEVELS[Math.min(curLevel, LEVELS.length-1)];
 }
@@ -559,7 +682,8 @@ function mkPlat(ax, ly, d) {
   const df = getDifficulty();
   const gap = df.gap + Math.random()*df.gapR;
   const x = ax + gap;
-  const w = df.minW + Math.random()*(df.maxW-df.minW);
+  let w = df.minW + Math.random()*(df.maxW-df.minW);
+  if(bigPlat) w *= 2;
   let y = ly + (Math.random()-0.5)*df.yVar;
   y = Math.max(H*0.2, Math.min(H-LAVA-50, y));
 
@@ -593,7 +717,7 @@ let pressing = false;
 
 function jump() {
   if(mode==="play" && pl && pl.alive && pl.ground) {
-    pl.vy = superJump ? JUMP*1.8 : JUMP;
+    pl.vy = megaJump ? JUMP*3 : superJump ? JUMP*1.8 : JUMP;
     pl.ground = false;
     pl.jt = performance.now();
     burst(pl.x+PW/2, pl.y+PH, superJump?"#fbbf24":"#fff8", superJump?10:5);
@@ -701,7 +825,7 @@ function update() {
   }
 
   // Yerçekimi
-  pl.vy += G;
+  pl.vy += lowGrav ? G*0.35 : G;
 
   // Uzun bas = yüksek zıpla
   if(pressing && pl.vy<0 && performance.now()-pl.jt<200) {
@@ -755,7 +879,7 @@ function update() {
   }
 
   // Toplanabilirler
-  const mag = fx.magnet>0 ? 140 : 0;
+  const mag = (fx.magnet>0 || autoCoin) ? (autoCoin?500:140) : 0;
   for(const c of items) {
     if(c.got) continue;
     if(mag>0) {
@@ -765,7 +889,7 @@ function update() {
     }
     if(Math.abs(pl.x+PW/2-c.x)<30 && Math.abs(pl.y+PH/2-c.y)<30) {
       c.got=true;
-      if(c.type==="star") { const v=1+Math.floor(dist/500); rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",8); }
+      if(c.type==="star") { let v=1+Math.floor(dist/500); if(coinMult)v*=5; rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",8); }
       else if(c.type==="shield") { fx.shield=1; ftext(c.x,c.y-20,"🛡️ KALKAN!","#60a5fa"); burst(c.x,c.y,"#3b82f6",15); burst(c.x,c.y,"#60a5fa",10); toast("🛡️ Kalkan aktif — 1 kez lavdan kurtarır!"); }
       else if(c.type==="magnet") { fx.magnet=600; ftext(c.x,c.y-20,"🧲 MIKNATIS!","#f87171"); burst(c.x,c.y,"#ef4444",15); burst(c.x,c.y,"#f87171",10); toast("🧲 Mıknatıs aktif — 10 saniye!"); }
       else if(c.type==="slow") { fx.slow=300; ftext(c.x,c.y-20,"🐌 YAVAŞLA!","#4ade80"); burst(c.x,c.y,"#22c55e",15); burst(c.x,c.y,"#4ade80",10); toast("🐌 Yavaşlama aktif — 5 saniye!"); }
@@ -774,6 +898,13 @@ function update() {
 
   if(fx.magnet>0) fx.magnet--;
   if(fx.slow>0) fx.slow--;
+
+  // NoClip - düşmeyi engelle
+  if(noClip && pl.y+PH > H-LAVA-30) {
+    pl.vy = -3;
+    pl.y = H-LAVA-PH-30;
+    pl.ground = true;
+  }
 
   // Lava ölüm
   if(pl.y+PH > H-LAVA) {
@@ -810,6 +941,50 @@ function update() {
   parts = parts.filter(p=>p.l>0);
   for(const f of texts) { f.y+=f.vy; f.l-=0.02; }
   texts = texts.filter(f=>f.l>0);
+
+  // Dinazor kovalama (5. bölümden sonra)
+  if(curLevel >= 5 && dino && !noDino) {
+    if(!dino.active) {
+      dino.active = true;
+      dino.x = -80;
+      dino.speed = cs * 0.6;
+      dino.roar = 120;
+      ftext(W/2, H/3, "🦖 DİNAZOR GELİYOR!", "#ef4444");
+      toast("🦖 Dikkat! Dinazor kovalıyor! Durma, koş!");
+    }
+    dino.frame++;
+    // Dinazor hızı - oyuncuya yaklaştıkça hızlanır
+    const targetSpeed = cs * (0.75 + curLevel * 0.02);
+    dino.speed += (targetSpeed - dino.speed) * 0.01;
+    dino.x += dino.speed - cs; // sahneyle birlikte hareket eder ama yavaşça yaklaşır
+    // Oyuncu yavaşlarsa dinazor yaklaşır
+    if(!pl.ground && pl.vy > 0) dino.x += 0.3;
+    // Dinazor çok geride kalmasın
+    if(dino.x < -100) dino.x = -100;
+    // Dinazor çok yaklaşmasın (ekranın solunda kalmalı)
+    if(dino.x > pl.x - 60) dino.x = pl.x - 60;
+
+    // Kükreme efekti
+    if(dino.roar > 0) dino.roar--;
+    if(dino.frame % 300 === 0) { dino.roar = 60; }
+
+    // Dinazor oyuncuya değdi mi?
+    if(dino.x + 80 > pl.x && dino.x < pl.x + PW) {
+      if(!godMode) {
+        ftext(pl.x, pl.y - 20, "DINAZOR YAKALADI!", "#ef4444");
+        burst(pl.x + PW/2, pl.y + PH/2, "#ef4444", 20);
+        die();
+        return;
+      } else {
+        dino.x = pl.x - 80;
+      }
+    }
+
+    // Nefes parçacıkları
+    if(dino.frame % 3 === 0 && dino.x > -60) {
+      burst(dino.x + 90, pl.y + PH - 60, "#ef444440", 2);
+    }
+  }
 
   // Bölüm tamamlama kontrolü
   if(levelDist >= lvl.target) {
@@ -1019,6 +1194,155 @@ function draw() {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(emojis[c.type], c.x, by);
+  }
+
+  // ========== DINAZOR ==========
+  if(dino && dino.active && dino.x > -100) {
+    const dx = dino.x;
+    const dy = pl.y + PH; // oyuncuyla aynı hiza (ayak seviyesi)
+    const dFrame = dino.frame;
+    const legAnim = Math.sin(dFrame * 0.15);
+    const headBob = Math.sin(dFrame * 0.08) * 4;
+    const breathe = Math.sin(dFrame * 0.05) * 3;
+    const DS = 1.8; // dinazor ölçeği
+
+    ctx.save();
+    ctx.translate(dx, dy);
+    ctx.scale(DS, DS);
+
+    // Kuyruk
+    ctx.fillStyle = "#166534";
+    ctx.beginPath();
+    ctx.moveTo(-10, -30);
+    ctx.quadraticCurveTo(-45, -35 + Math.sin(dFrame*0.06)*8, -65, -20 + Math.sin(dFrame*0.04)*6);
+    ctx.quadraticCurveTo(-50, -25, -10, -22);
+    ctx.fill();
+    // Kuyruk dikenleri
+    ctx.fillStyle = "#15803d";
+    for(let i=0;i<4;i++) {
+      const tx = -15 - i*13, ty = -32 + i*2 + Math.sin(dFrame*0.06+i)*4;
+      ctx.beginPath();
+      ctx.moveTo(tx-3, ty+3);
+      ctx.lineTo(tx, ty-6);
+      ctx.lineTo(tx+3, ty+3);
+      ctx.fill();
+    }
+
+    // Bacaklar
+    ctx.fillStyle = "#166534";
+    // Arka sol bacak
+    ctx.save();
+    ctx.translate(5, -12);
+    ctx.rotate(legAnim * 0.4);
+    ctx.fillRect(-4, 0, 8, 16);
+    ctx.fillStyle = "#14532d";
+    ctx.fillRect(-5, 14, 10, 5); // pençe
+    ctx.restore();
+    // Arka sağ bacak
+    ctx.fillStyle = "#166534";
+    ctx.save();
+    ctx.translate(20, -12);
+    ctx.rotate(-legAnim * 0.4);
+    ctx.fillRect(-4, 0, 8, 16);
+    ctx.fillStyle = "#14532d";
+    ctx.fillRect(-5, 14, 10, 5);
+    ctx.restore();
+
+    // Gövde
+    ctx.fillStyle = "#166534";
+    ctx.beginPath();
+    ctx.ellipse(15, -30 + breathe, 28, 18, 0, 0, Math.PI*2);
+    ctx.fill();
+    // Göbek
+    ctx.fillStyle = "#86efac";
+    ctx.beginPath();
+    ctx.ellipse(18, -26 + breathe, 14, 12, 0.1, 0, Math.PI*2);
+    ctx.fill();
+    // Sırt dikenleri
+    ctx.fillStyle = "#15803d";
+    for(let i=0;i<5;i++) {
+      const sx = 2 + i*7, sy = -46 + breathe + Math.abs(i-2)*2;
+      ctx.beginPath();
+      ctx.moveTo(sx-3, sy+6);
+      ctx.lineTo(sx, sy);
+      ctx.lineTo(sx+3, sy+6);
+      ctx.fill();
+    }
+
+    // Ön küçük kollar
+    ctx.fillStyle = "#166534";
+    ctx.save();
+    ctx.translate(30, -30 + breathe);
+    ctx.rotate(0.5 + legAnim*0.3);
+    ctx.fillRect(0, 0, 5, 10);
+    ctx.fillStyle = "#14532d";
+    ctx.fillRect(-1, 9, 6, 3);
+    ctx.restore();
+
+    // Kafa
+    ctx.fillStyle = "#166534";
+    const hx = 38, hy = -42 + headBob;
+    ctx.beginPath();
+    ctx.ellipse(hx, hy, 16, 13, 0.15, 0, Math.PI*2);
+    ctx.fill();
+    // Çene alt
+    ctx.fillStyle = "#86efac";
+    ctx.beginPath();
+    ctx.ellipse(hx+4, hy+6, 10, 5, 0.15, 0, Math.PI);
+    ctx.fill();
+
+    // Ağız
+    ctx.fillStyle = "#450a0a";
+    ctx.beginPath();
+    const mouthOpen = dino.roar > 0 ? 4 + Math.sin(dino.roar*0.3)*3 : 1;
+    ctx.ellipse(hx+14, hy+2, 5, mouthOpen, 0.2, 0, Math.PI*2);
+    ctx.fill();
+    // Dişler
+    if(mouthOpen > 2) {
+      ctx.fillStyle = "#fff";
+      for(let i=0;i<3;i++) {
+        ctx.beginPath();
+        ctx.moveTo(hx+11+i*3, hy-1);
+        ctx.lineTo(hx+12.5+i*3, hy+2);
+        ctx.lineTo(hx+10+i*3, hy+2);
+        ctx.fill();
+      }
+    }
+
+    // Göz
+    ctx.fillStyle = "#fbbf24";
+    ctx.beginPath();
+    ctx.arc(hx+6, hy-4, 4, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = "#1e293b";
+    ctx.beginPath();
+    ctx.ellipse(hx+7, hy-4, 2, 3, 0, 0, Math.PI*2);
+    ctx.fill();
+    // Göz parlaklığı
+    ctx.fillStyle = "#fff";
+    ctx.beginPath();
+    ctx.arc(hx+5, hy-5.5, 1.2, 0, Math.PI*2);
+    ctx.fill();
+
+    // Kükreme efekti
+    if(dino.roar > 0) {
+      ctx.globalAlpha = dino.roar / 60 * 0.3;
+      ctx.strokeStyle = "#ef4444";
+      ctx.lineWidth = 2;
+      for(let i=1;i<=3;i++) {
+        ctx.beginPath();
+        ctx.arc(hx+18, hy, 8+i*8, -0.5, 0.5);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+
+      // Ekran titremesi
+      if(dino.roar > 50) {
+        ctx.translate((Math.random()-.5)*3, (Math.random()-.5)*2);
+      }
+    }
+
+    ctx.restore();
   }
 
   // ========== OYUNCU ==========
@@ -1735,11 +2059,33 @@ function renderFriends() {
             <div class="fc-level">Bölüm ${fData.level} • ${fData.best}m en iyi</div>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
           <span class="fc-score">${fData.coins} ⭐</span>
-          <button class="fc-remove" data-friend="${f}">Çıkar</button>
+          ${isAdmin()?'<button class="fc-gift" style="background:#f59e0b;border:none;color:#fff;font-size:11px;padding:4px 10px;border-radius:8px;cursor:pointer;font-weight:600">⭐ Ver</button><button class="fc-take" style="background:#dc2626;border:none;color:#fff;font-size:11px;padding:4px 10px;border-radius:8px;cursor:pointer;font-weight:600">⭐ Al</button>':''}
+          <button class="fc-remove">Çıkar</button>
         </div>`;
-      card.querySelector(".fc-remove").onclick = () => {
+      if(isAdmin()) {
+        card.querySelector('.fc-gift').onclick = (e) => {
+          e.stopPropagation();
+          const amount = prompt("Kaç yıldız vermek istiyorsun?\n("+f+" şu an: "+fData.coins+" ⭐)","100");
+          if(amount===null) return;
+          const num = parseInt(amount);
+          if(isNaN(num)||num<=0) { toast("Geçerli bir sayı gir!"); return; }
+          giveStarsToFriend(f, num);
+          renderFriends();
+        };
+        card.querySelector('.fc-take').onclick = (e) => {
+          e.stopPropagation();
+          const amount = prompt("Kaç yıldız geri almak istiyorsun?\n("+f+" şu an: "+fData.coins+" ⭐)","100");
+          if(amount===null) return;
+          const num = parseInt(amount);
+          if(isNaN(num)||num<=0) { toast("Geçerli bir sayı gir!"); return; }
+          takeStarsFromFriend(f, num);
+          renderFriends();
+        };
+      }
+      card.querySelector(".fc-remove").onclick = (e) => {
+        e.stopPropagation();
         sv.friends = sv.friends.filter(x=>x!==f);
         saveSv();
         renderFriends();
@@ -1779,6 +2125,35 @@ function renderFriends() {
   });
 }
 
+function giveStarsToFriend(username, amount) {
+  const key = "yy_"+username;
+  try {
+    let d = JSON.parse(localStorage.getItem(key));
+    if(!d) d = {best:0,coins:100,tCoins:100,chars:["runner"],selChar:"runner",themes:["lava"],selTheme:"lava",ach:[],accs:[],selAcc:{hat:"",glass:"",cape:"",extra:"",outfit:""}};
+    d.coins = (d.coins||0) + amount;
+    d.tCoins = (d.tCoins||0) + amount;
+    localStorage.setItem(key, JSON.stringify(d));
+    toast("✅ "+username+" hesabına "+amount+" ⭐ eklendi!");
+  } catch {
+    toast("❌ Yıldız verilemedi!");
+  }
+}
+
+function takeStarsFromFriend(username, amount) {
+  const key = "yy_"+username;
+  try {
+    let d = JSON.parse(localStorage.getItem(key));
+    if(!d) { toast("❌ Kullanıcı verisi bulunamadı!"); return; }
+    const had = d.coins||0;
+    d.coins = Math.max(0, had - amount);
+    const taken = had - d.coins;
+    localStorage.setItem(key, JSON.stringify(d));
+    toast("✅ "+username+" hesabından "+taken+" ⭐ alındı! (Kalan: "+d.coins+")");
+  } catch {
+    toast("❌ Yıldız alınamadı!");
+  }
+}
+
 function getFriendData(username) {
   try {
     const d = JSON.parse(localStorage.getItem("yy_"+username));
@@ -1809,6 +2184,7 @@ document.getElementById("friendInput").addEventListener("keydown",(e)=>{if(e.key
 
 // ========== ADMIN ==========
 let godMode = false, superJump = false, slowMo = false, superSpeed = false;
+let noClip = false, megaJump = false, autoCoin = false, noDino = false, bigPlat = false, lowGrav = false, coinMult = false;
 
 function renderAdmin() {
   document.getElementById("adm-coins-val").textContent = sv.coins.toLocaleString()+" ⭐";
@@ -1820,6 +2196,34 @@ function renderAdmin() {
   document.getElementById("adm-slow-val").style.color = slowMo?"#22c55e":"#fbbf24";
   document.getElementById("adm-speed-val").textContent = superSpeed?"AÇIK":"KAPALI";
   document.getElementById("adm-speed-val").style.color = superSpeed?"#22c55e":"#fbbf24";
+  document.getElementById("adm-noclip-val").textContent = noClip?"AÇIK":"KAPALI";
+  document.getElementById("adm-noclip-val").style.color = noClip?"#22c55e":"#fbbf24";
+  document.getElementById("adm-mega-val").textContent = megaJump?"AÇIK":"KAPALI";
+  document.getElementById("adm-mega-val").style.color = megaJump?"#22c55e":"#fbbf24";
+  document.getElementById("adm-auto-val").textContent = autoCoin?"AÇIK":"KAPALI";
+  document.getElementById("adm-auto-val").style.color = autoCoin?"#22c55e":"#fbbf24";
+  document.getElementById("adm-nodino-val").textContent = noDino?"AÇIK":"KAPALI";
+  document.getElementById("adm-nodino-val").style.color = noDino?"#22c55e":"#fbbf24";
+  document.getElementById("adm-bigplat-val").textContent = bigPlat?"AÇIK":"KAPALI";
+  document.getElementById("adm-bigplat-val").style.color = bigPlat?"#22c55e":"#fbbf24";
+  document.getElementById("adm-lowgrav-val").textContent = lowGrav?"AÇIK":"KAPALI";
+  document.getElementById("adm-lowgrav-val").style.color = lowGrav?"#22c55e":"#fbbf24";
+  document.getElementById("adm-coinmult-val").textContent = coinMult?"AÇIK (x5)":"KAPALI";
+  document.getElementById("adm-coinmult-val").style.color = coinMult?"#22c55e":"#fbbf24";
+
+  // İstatistikler
+  const users = getUsers();
+  const userCount = Object.keys(users).length;
+  const banCount = Object.keys(getBans()).length;
+  document.getElementById("adminStats").innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+      <div style="color:#a78bfa">👥 Toplam Kullanıcı</div><div style="color:#fbbf24;font-weight:700;text-align:right">${userCount}</div>
+      <div style="color:#a78bfa">🚫 Banlı</div><div style="color:#ef4444;font-weight:700;text-align:right">${banCount}</div>
+      <div style="color:#a78bfa">📍 Mevcut Bölüm</div><div style="color:#22c55e;font-weight:700;text-align:right">${(curLevel||0)+1} / ${LEVELS.length}</div>
+      <div style="color:#a78bfa">🏆 En İyi Skor</div><div style="color:#fbbf24;font-weight:700;text-align:right">${sv.best}m</div>
+      <div style="color:#a78bfa">⭐ Toplam Kazanılan</div><div style="color:#fbbf24;font-weight:700;text-align:right">${(sv.tCoins||0).toLocaleString()}</div>
+      <div style="color:#a78bfa">📊 Bölüm Sayısı</div><div style="color:#fff;font-weight:700;text-align:right">${LEVELS.length}</div>
+    </div>`;
 
   // Bölüm seçici
   const sel = document.getElementById("adm-level");
@@ -1831,10 +2235,57 @@ function renderAdmin() {
     if(i===(curLevel||0)) o.selected=true;
     sel.appendChild(o);
   });
+
+  // Ban listesi
+  renderBanList();
+}
+
+function renderBanList() {
+  const banListEl = document.getElementById("banList");
+  banListEl.innerHTML = "";
+  const bans = getBans();
+  const entries = Object.entries(bans);
+  if(entries.length===0) {
+    banListEl.innerHTML = '<div style="font-size:12px;color:#64748b;padding:8px 0">Banlı kullanıcı yok</div>';
+    return;
+  }
+  entries.forEach(([username, ban])=>{
+    const remaining = formatBanRemaining(ban.until);
+    const expired = ban.until !== -1 && Date.now() > ban.until;
+    const card = document.createElement("div");
+    card.className = "friend-card";
+    if(expired) card.style.opacity = "0.5";
+    card.style.borderColor = "#dc2626";
+    card.innerHTML = `
+      <div class="fc-left">
+        <span style="font-size:16px">🚫</span>
+        <div>
+          <div class="fc-name" style="color:#ef4444">${username}</div>
+          <div style="font-size:11px;color:#f87171">${expired?"Süresi doldu":remaining}</div>
+          ${ban.reason?'<div style="font-size:10px;color:#64748b">Sebep: '+ban.reason+'</div>':""}
+        </div>
+      </div>
+      <button class="fc-remove" style="background:#22c55e">Ban Kaldır</button>`;
+    card.querySelector("button").onclick = () => {
+      const b = getBans();
+      delete b[username];
+      saveBans(b);
+      renderBanList();
+      toast("✅ "+username+" banı kaldırıldı");
+    };
+    banListEl.appendChild(card);
+  });
 }
 
 // Ekonomi
 document.getElementById("adm-coins").onclick=()=>{sv.coins+=10000;saveSv();renderAdmin();toast("+10.000 ⭐ eklendi!");};
+document.getElementById("adm-customcoins").onclick=()=>{
+  const amount = prompt("Kaç yıldız istiyorsun?\n(Şu an: "+sv.coins+" ⭐)");
+  if(amount===null) return;
+  const num = parseInt(amount);
+  if(isNaN(num)||num<0) { toast("Geçerli bir sayı gir!"); return; }
+  sv.coins=num;saveSv();renderAdmin();toast(num.toLocaleString()+" ⭐ ayarlandı!");
+};
 document.getElementById("adm-maxcoins").onclick=()=>{sv.coins=999999;saveSv();renderAdmin();toast("999.999 ⭐ verildi!");};
 document.getElementById("adm-resetcoins").onclick=()=>{sv.coins=0;saveSv();renderAdmin();toast("Yıldızlar sıfırlandı!");};
 
@@ -1859,9 +2310,83 @@ document.getElementById("adm-godmode").onclick=()=>{godMode=!godMode;renderAdmin
 document.getElementById("adm-superjump").onclick=()=>{superJump=!superJump;renderAdmin();toast(superJump?"🚀 Süper Zıplama AÇIK!":"Süper Zıplama kapatıldı");};
 document.getElementById("adm-slowmo").onclick=()=>{slowMo=!slowMo;if(slowMo)superSpeed=false;renderAdmin();toast(slowMo?"🐌 Yavaş Çekim AÇIK!":"Yavaş Çekim kapatıldı");};
 document.getElementById("adm-superspeed").onclick=()=>{superSpeed=!superSpeed;if(superSpeed)slowMo=false;renderAdmin();toast(superSpeed?"💨 Süper Hız AÇIK!":"Süper Hız kapatıldı");};
+document.getElementById("adm-noclip").onclick=()=>{noClip=!noClip;renderAdmin();toast(noClip?"👻 Hayalet Modu AÇIK — Düşemezsin!":"Hayalet Modu kapatıldı");};
+document.getElementById("adm-megajump").onclick=()=>{megaJump=!megaJump;renderAdmin();toast(megaJump?"🦘 Mega Zıplama AÇIK!":"Mega Zıplama kapatıldı");};
+document.getElementById("adm-autocoin").onclick=()=>{autoCoin=!autoCoin;renderAdmin();toast(autoCoin?"🤑 Otomatik Toplama AÇIK!":"Otomatik Toplama kapatıldı");};
+document.getElementById("adm-nodino").onclick=()=>{noDino=!noDino;if(noDino&&dino)dino.active=false;renderAdmin();toast(noDino?"🦖 Dinazor KAPALI!":"Dinazor tekrar aktif");};
+document.getElementById("adm-bigplat").onclick=()=>{bigPlat=!bigPlat;renderAdmin();toast(bigPlat?"📏 Geniş Platformlar AÇIK!":"Geniş Platformlar kapatıldı");};
+document.getElementById("adm-lowgrav").onclick=()=>{lowGrav=!lowGrav;renderAdmin();toast(lowGrav?"🌙 Düşük Yerçekimi AÇIK!":"Düşük Yerçekimi kapatıldı");};
+document.getElementById("adm-coinmult").onclick=()=>{coinMult=!coinMult;renderAdmin();toast(coinMult?"💰 Yıldız Çarpanı x5 AÇIK!":"Yıldız Çarpanı kapatıldı");};
+document.getElementById("adm-skipbtn").onclick=()=>{if(curLevel<LEVELS.length-1){curLevel++;toast("⏭️ Bölüm "+(curLevel+1)+"'e atlandı!");renderAdmin();}else toast("Son bölümdesin!");};
+document.getElementById("adm-completeall").onclick=()=>{curLevel=LEVELS.length-1;let totalReward=0;LEVELS.forEach(l=>totalReward+=l.reward);sv.coins+=totalReward;sv.tCoins+=totalReward;saveSv();renderAdmin();toast("🏁 Tüm bölümler tamamlandı! +"+totalReward+" ⭐");};
+
+// Kullanıcı Yönetimi
+document.getElementById("adm-userlist").onclick=()=>{
+  const panel=document.getElementById("userListPanel");
+  if(panel.style.display==="none"){
+    panel.style.display="block";
+    const users=getUsers();
+    const bans=getBans();
+    let html='';
+    Object.entries(users).forEach(([name,data])=>{
+      const ban=bans[name];
+      const isBanned=ban&&(ban.until===-1||Date.now()<ban.until);
+      html+=`<div class="friend-card" style="border-color:${isBanned?'#dc2626':data.isAdmin?'#fbbf24':'#312e81'}">
+        <div class="fc-left"><span style="font-size:16px">${data.isAdmin?'👑':'👤'}</span>
+        <div><div class="fc-name" style="color:${data.isAdmin?'#fbbf24':'#e2e8f0'}">${name}</div>
+        <div style="font-size:10px;color:#64748b">${isBanned?'🚫 BANLI':data.isAdmin?'⚡ Admin':'Üye'}</div></div></div>
+      </div>`;
+    });
+    panel.innerHTML=html||'<div style="color:#64748b;font-size:12px;padding:8px">Kullanıcı yok</div>';
+  } else panel.style.display="none";
+};
+document.getElementById("adm-resetuser").onclick=()=>{
+  const name=prompt("İlerlemesini sıfırlamak istediğin kullanıcı adı:");
+  if(!name) return;
+  const key="yy_"+name.trim().toLowerCase();
+  if(!localStorage.getItem(key)){toast("❌ Kullanıcı verisi bulunamadı!");return;}
+  if(confirm(name+" kullanıcısının tüm ilerlemesi sıfırlanacak!")){
+    localStorage.removeItem(key);
+    toast("🔄 "+name+" ilerlemesi sıfırlandı!");
+  }
+};
+document.getElementById("adm-givecoinsuser").onclick=()=>{
+  const name=prompt("Yıldız vermek istediğin kullanıcı adı:");
+  if(!name) return;
+  const amount=prompt("Kaç yıldız?","1000");
+  if(!amount) return;
+  const num=parseInt(amount);
+  if(isNaN(num)||num<=0){toast("Geçerli sayı gir!");return;}
+  giveStarsToFriend(name.trim().toLowerCase(),num);
+};
 document.getElementById("adm-allpower").onclick=()=>{if(mode==="play"&&fx){fx.shield=1;fx.magnet=6000;fx.slow=3000;toast("⚡ Tüm güçler aktif!");}else toast("Önce oyuna başla!");};
 
 // Sıfırlama
+// Banlama
+document.getElementById("adm-ban").onclick=()=>{
+  const username = document.getElementById("banUserInput").value.trim().toLowerCase();
+  const days = parseInt(document.getElementById("banDays").value);
+  const reason = document.getElementById("banReason").value.trim();
+  if(!username) { toast("Kullanıcı adı gir!"); return; }
+  if(username===ADMIN_USER) { toast("❌ Admin banlanamaz!"); return; }
+  const users = getUsers();
+  if(!users[username]) { toast("❌ Bu kullanıcı bulunamadı!"); return; }
+  const bans = getBans();
+  bans[username] = {
+    until: days===9999 ? -1 : Date.now() + days*86400000,
+    days: days,
+    reason: reason || "",
+    bannedAt: Date.now(),
+    bannedBy: currentUser.username
+  };
+  saveBans(bans);
+  document.getElementById("banUserInput").value="";
+  document.getElementById("banReason").value="";
+  renderBanList();
+  const durText = days===9999?"süresiz":days+" gün";
+  toast("🔨 "+username+" "+durText+" banlandı!");
+};
+
 document.getElementById("adm-reset").onclick=()=>{if(confirm("Tüm kayıtlar silinecek! Emin misin?")){localStorage.removeItem(getSaveKey());loadSv();renderAdmin();toast("💀 Tüm kayıtlar silindi!");}};
 
 // ========== MAIN LOOP ==========
