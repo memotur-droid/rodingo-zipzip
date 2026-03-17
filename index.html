@@ -652,21 +652,21 @@ const LEVEL_NAMES_POOL = [
   "Son Efsane","Sonsuz Döngü","Evrenin Sonu","Büyük Patlama","MUTLAK GÜÇ",
 ];
 
-for(let i=41; i<=680; i++) {
+for(let i=41; i<=3000; i++) {
   const t = (i-41) % LEVEL_NAMES_POOL.length;
-  const progress = Math.min(1, (i-40)/640); // 0..1
+  const progress = Math.min(1, (i-40)/2960); // 0..1
   LEVELS.push({
     num: i,
     name: LEVEL_NAMES_POOL[t] + (i>150?" "+Math.ceil((i-40)/LEVEL_NAMES_POOL.length):""),
-    target: Math.floor(200 + progress * 500),
-    reward: Math.floor(100 + progress * 1500),
-    gap: Math.floor(40 + progress * 50),
-    gapR: Math.floor(30 + progress * 55),
-    minW: Math.max(22, Math.floor(120 - progress * 95)),
-    maxW: Math.max(35, Math.floor(180 - progress * 130)),
-    yVar: Math.floor(40 + progress * 90),
-    special: Math.min(0.95, 0.1 + progress * 0.85),
-    spdMul: Math.min(2.0, 0.8 + progress * 1.2),
+    target: Math.floor(100 + progress * 200),
+    reward: Math.floor(120 + progress * 1800),
+    gap: Math.floor(25 + progress * 10),
+    gapR: Math.floor(15 + progress * 15),
+    minW: Math.max(70, Math.floor(150 - progress * 50)),
+    maxW: Math.max(90, Math.floor(210 - progress * 70)),
+    yVar: Math.floor(30 + progress * 35),
+    special: Math.min(0.4, 0.03 + progress * 0.37),
+    spdMul: Math.min(2.0, 0.75 + progress * 1.25),
   });
 }
 
@@ -726,7 +726,7 @@ function jump() {
 
 let adminPlay = false;
 document.getElementById("btnPlay").onclick = () => { adminPlay=false; godMode=false; superJump=false; slowMo=false; curLevel=0; mode="play"; init(); showAll(); };
-document.getElementById("btnPlayAdmin").onclick = () => { adminPlay=true; curLevel=0; mode="play"; init(); showAll(); };
+document.getElementById("btnPlayAdmin").onclick = () => { adminPlay=true; mode="play"; init(); showAll(); };
 document.getElementById("btnRetry").onclick = () => { mode="play"; init(); showAll(); };
 document.getElementById("btnMenu").onclick = () => { mode="menu"; showAll(); };
 document.getElementById("btnShop").onclick = () => { mode="shop"; renderShop(); showAll(); };
@@ -954,11 +954,11 @@ function update() {
     }
     dino.frame++;
     // Dinazor hızı - oyuncuya yaklaştıkça hızlanır
-    const targetSpeed = cs * (0.75 + curLevel * 0.02);
-    dino.speed += (targetSpeed - dino.speed) * 0.01;
+    const targetSpeed = cs * Math.min(1.1, 0.75 + curLevel * 0.002);
+    dino.speed += (targetSpeed - dino.speed) * 0.005;
     dino.x += dino.speed - cs; // sahneyle birlikte hareket eder ama yavaşça yaklaşır
     // Oyuncu yavaşlarsa dinazor yaklaşır
-    if(!pl.ground && pl.vy > 0) dino.x += 0.3;
+    if(!pl.ground && pl.vy > 0) dino.x += 0.15;
     // Dinazor çok geride kalmasın
     if(dino.x < -100) dino.x = -100;
     // Dinazor çok yaklaşmasın (ekranın solunda kalmalı)
