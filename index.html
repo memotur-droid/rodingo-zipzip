@@ -33,7 +33,7 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
 #hud.off{display:none}
 .hs{font-size:clamp(20px,5vw,32px);font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
 .hc{font-size:14px;color:#fbbf24;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
-.hp{position:absolute;top:50px;left:50%;transform:translateX(-50%);font-size:13px;color:#a78bfa;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.5)}
+.hp{position:absolute;top:50px;left:50%;transform:translateX(-50%);font-size:15px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,0.6);padding:6px 16px;border-radius:20px;white-space:nowrap}
 .controls-hint{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);font-size:13px;color:#ffffff60;font-weight:500;text-shadow:0 2px 8px rgba(0,0,0,0.5);z-index:5;pointer-events:none;transition:opacity 1s}
 .shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;width:90%;max-width:500px;margin-bottom:24px}
 .shop-item{background:#1e1b4b;border:2px solid #312e81;border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer}
@@ -422,10 +422,10 @@ function update() {
     }
     if(Math.abs(pl.x+PW/2-c.x)<30 && Math.abs(pl.y+PH/2-c.y)<30) {
       c.got=true;
-      if(c.type==="star") { const v=1+Math.floor(dist/500); rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",5); }
-      else if(c.type==="shield") { fx.shield=1; ftext(c.x,c.y,"KALKAN!","#3b82f6"); burst(c.x,c.y,"#3b82f6",6); }
-      else if(c.type==="magnet") { fx.magnet=600; ftext(c.x,c.y,"MIKNATIS!","#ef4444"); burst(c.x,c.y,"#ef4444",6); }
-      else if(c.type==="slow") { fx.slow=300; ftext(c.x,c.y,"YAVAŞLA!","#22c55e"); burst(c.x,c.y,"#22c55e",6); }
+      if(c.type==="star") { const v=1+Math.floor(dist/500); rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",8); }
+      else if(c.type==="shield") { fx.shield=1; ftext(c.x,c.y-20,"🛡️ KALKAN!","#60a5fa"); burst(c.x,c.y,"#3b82f6",15); burst(c.x,c.y,"#60a5fa",10); toast("🛡️ Kalkan aktif — 1 kez lavdan kurtarır!"); }
+      else if(c.type==="magnet") { fx.magnet=600; ftext(c.x,c.y-20,"🧲 MIKNATIS!","#f87171"); burst(c.x,c.y,"#ef4444",15); burst(c.x,c.y,"#f87171",10); toast("🧲 Mıknatıs aktif — 10 saniye!"); }
+      else if(c.type==="slow") { fx.slow=300; ftext(c.x,c.y-20,"🐌 YAVAŞLA!","#4ade80"); burst(c.x,c.y,"#22c55e",15); burst(c.x,c.y,"#4ade80",10); toast("🐌 Yavaşlama aktif — 5 saniye!"); }
     }
   }
 
@@ -473,10 +473,22 @@ function update() {
   document.getElementById("coins").textContent = rCoins+" ⭐";
   document.getElementById("level").textContent = "Bölüm "+lvl.num+" — "+lvl.name;
   const pup = document.getElementById("pup");
-  if(fx.magnet>0) pup.textContent = "🧲 "+Math.ceil(fx.magnet/60)+"sn";
-  else if(fx.slow>0) pup.textContent = "🐌 "+Math.ceil(fx.slow/60)+"sn";
-  else if(fx.shield>0) pup.textContent = "🛡️ Kalkan";
-  else pup.textContent = "";
+  if(fx.magnet>0) {
+    pup.textContent = "🧲 Mıknatıs — "+Math.ceil(fx.magnet/60)+"sn";
+    pup.style.color = "#f87171";
+    pup.style.background = "rgba(127,29,29,0.7)";
+  } else if(fx.slow>0) {
+    pup.textContent = "🐌 Yavaşlama — "+Math.ceil(fx.slow/60)+"sn";
+    pup.style.color = "#4ade80";
+    pup.style.background = "rgba(5,46,22,0.7)";
+  } else if(fx.shield>0) {
+    pup.textContent = "🛡️ Kalkan aktif";
+    pup.style.color = "#93c5fd";
+    pup.style.background = "rgba(30,58,138,0.7)";
+  } else {
+    pup.textContent = "";
+    pup.style.background = "none";
+  }
 }
 
 function completeLevel() {
@@ -635,14 +647,25 @@ function draw() {
     if(c.got||c.x>W+30||c.x<-30) continue;
     c.bp += 0.04;
     const by = c.y+Math.sin(c.bp)*6;
-    // Parlaklık halkası
-    const glow = 0.15+0.1*Math.sin(c.bp*2);
-    ctx.fillStyle = "rgba(255,255,200,"+glow+")";
+    // Parlaklık halkası (güç itemleri daha parlak)
+    const isPower = c.type!=="star";
+    const glowSize = isPower ? 22 : 16;
+    const glowAlpha = isPower ? 0.25+0.15*Math.sin(c.bp*2) : 0.12+0.08*Math.sin(c.bp*2);
+    const glowCol = c.type==="shield"?"100,150,255":c.type==="magnet"?"255,100,100":c.type==="slow"?"100,255,150":"255,255,200";
+    ctx.fillStyle = "rgba("+glowCol+","+glowAlpha+")";
     ctx.beginPath();
-    ctx.arc(c.x, by, 16, 0, Math.PI*2);
+    ctx.arc(c.x, by, glowSize, 0, Math.PI*2);
     ctx.fill();
+    // Dış halka (güç itemleri)
+    if(isPower) {
+      ctx.strokeStyle = "rgba("+glowCol+","+glowAlpha+")";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(c.x, by, glowSize+6+Math.sin(c.bp*3)*3, 0, Math.PI*2);
+      ctx.stroke();
+    }
     // Emoji
-    ctx.font = "26px sans-serif";
+    ctx.font = (isPower?"32":"28")+"px sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(emojis[c.type], c.x, by);
@@ -660,17 +683,79 @@ function draw() {
     ctx.ellipse(pcx, pl.y+PH+4, 18*s, 5*s, 0, 0, Math.PI*2);
     ctx.fill();
 
-    // Kalkan efekti
+    // Kalkan efekti — parlak mavi halka + iç glow
     if(fx.shield>0) {
-      const pulse = 1+0.05*Math.sin(frame*0.1);
-      ctx.strokeStyle = "#60a5fa";
-      ctx.lineWidth = 3;
+      const pulse = 1+0.08*Math.sin(frame*0.12);
+      // Dış glow
       ctx.shadowColor = "#3b82f6";
-      ctx.shadowBlur = 20;
+      ctx.shadowBlur = 30;
+      ctx.strokeStyle = "#60a5fa";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(pcx, pcy, 40*pulse, 0, Math.PI*2);
+      ctx.stroke();
+      // İç dolgu
+      ctx.fillStyle = "rgba(59,130,246,0.08)";
       ctx.beginPath();
       ctx.arc(pcx, pcy, 38*pulse, 0, Math.PI*2);
+      ctx.fill();
+      // Dönen parçacıklar
+      for(let i=0;i<4;i++) {
+        const a = frame*0.05 + i*Math.PI/2;
+        const rx = pcx + Math.cos(a)*36*pulse;
+        const ry = pcy + Math.sin(a)*36*pulse;
+        ctx.fillStyle = "#93c5fd";
+        ctx.beginPath(); ctx.arc(rx,ry,3,0,Math.PI*2); ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+    }
+
+    // Mıknatıs efekti — kırmızı elektrik halkası
+    if(fx.magnet>0) {
+      const pulse = 1+0.06*Math.sin(frame*0.15);
+      ctx.shadowColor = "#ef4444";
+      ctx.shadowBlur = 25;
+      ctx.strokeStyle = "#f8717180";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8,6]);
+      ctx.beginPath();
+      ctx.arc(pcx, pcy, 50*pulse, frame*0.03, frame*0.03+Math.PI*1.5);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      // Çekim çizgileri
+      for(let i=0;i<6;i++) {
+        const a = frame*0.04 + i*Math.PI/3;
+        const inner = 30*pulse, outer = 48*pulse;
+        ctx.strokeStyle = "#f8717140";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(pcx+Math.cos(a)*inner, pcy+Math.sin(a)*inner);
+        ctx.lineTo(pcx+Math.cos(a)*outer, pcy+Math.sin(a)*outer);
+        ctx.stroke();
+      }
+      ctx.shadowBlur = 0;
+      // Parçacık yağmuru
+      if(frame%4===0) burst(pcx+(Math.random()-.5)*60, pcy+(Math.random()-.5)*60, "#f8717160", 1);
+    }
+
+    // Yavaşlama efekti — yeşil spiral
+    if(fx.slow>0) {
+      const pulse = 1+0.05*Math.sin(frame*0.1);
+      ctx.shadowColor = "#22c55e";
+      ctx.shadowBlur = 20;
+      ctx.strokeStyle = "#4ade8060";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      for(let a=0;a<Math.PI*2;a+=0.1) {
+        const r = (25+a*4)*pulse;
+        const x = pcx + Math.cos(a+frame*0.06)*r;
+        const y = pcy + Math.sin(a+frame*0.06)*r;
+        if(a===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
       ctx.stroke();
       ctx.shadowBlur = 0;
+      // Yeşil parçacıklar
+      if(frame%6===0) burst(pcx+(Math.random()-.5)*40, pcy+(Math.random()-.5)*40, "#4ade8050", 1);
     }
 
     // Koşma parçacıkları
