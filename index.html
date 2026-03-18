@@ -2381,7 +2381,10 @@ document.getElementById("adm-coinmult10").onclick=()=>{coinMult10=!coinMult10;if
 document.getElementById("adm-invertgrav").onclick=()=>{invertGrav=!invertGrav;renderAdmin();toast(invertGrav?"🙃 Ters Yerçekimi AÇIK!":"Ters Yerçekimi kapatıldı");};
 document.getElementById("adm-alloff").onclick=()=>{godMode=false;superJump=false;slowMo=false;superSpeed=false;noClip=false;megaJump=false;autoCoin=false;noDino=false;bigPlat=false;lowGrav=false;coinMult=false;doubleJump=false;permMagnet=false;permShield=false;rainbowPlat=false;miniChar=false;freezeTime=false;coinMult10=false;invertGrav=false;renderAdmin();toast("🔌 Tüm güçler KAPATILDI!");};
 document.getElementById("adm-setdist").onclick=()=>{
-  if(!pl && prevMode!=="play") { toast("Önce oyuna başla!"); return; }
+  if(!pl) {
+    // Oyun başlamamışsa otomatik başlat
+    adminPlay=true; curLevel=sv.maxLevel||0; mode="play"; init();
+  }
   const lvl=getCurrentLevel();
   const amount=prompt("Kaç metre ilerlemek istiyorsun?\n(Bölüm hedefi: "+lvl.target+"m, Şu an: "+levelDist+"m)");
   if(amount===null) return;
