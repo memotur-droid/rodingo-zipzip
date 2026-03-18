@@ -99,6 +99,7 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
     <div id="adminBadge" style="font-size:10px;font-weight:800;color:#ef4444;text-shadow:0 0 8px #ef444480;margin-top:2px;display:none">⚡ ADMİN</div>
   </div>
   <div class="hp" id="pup"></div>
+  <button id="hudAdmin" style="position:absolute;top:12px;right:50%;transform:translateX(50%);background:rgba(220,38,38,0.8);border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:10px;cursor:pointer;pointer-events:auto;display:none;z-index:6">⚙️ Admin</button>
 </div>
 <div class="controls-hint off" id="hint">Space / Tıkla = Zıpla &nbsp;|&nbsp; Basılı tut = Yüksek zıpla</div>
 
@@ -754,9 +755,11 @@ document.getElementById("btnAdmin").onclick = () => { mode="admin"; renderAdmin(
 document.getElementById("btnBack").onclick = () => { mode="menu"; showAll(); };
 document.getElementById("btnBackAcc").onclick = () => { mode="menu"; showAll(); };
 document.getElementById("btnBackFriends").onclick = () => { mode="menu"; showAll(); };
-document.getElementById("btnBackAdmin").onclick = () => { mode="menu"; showAll(); };
+let prevMode = "menu";
+document.getElementById("btnBackAdmin").onclick = () => { mode=prevMode; prevMode="menu"; showAll(); };
 document.getElementById("btnFriends").onclick = () => { mode="friends"; renderFriends(); showAll(); };
 document.getElementById("btnNext").onclick = () => { mode="play"; init(); showAll(); };
+document.getElementById("hudAdmin").onclick = (e) => { e.stopPropagation(); prevMode="play"; mode="admin"; renderAdmin(); showAll(); };
 document.getElementById("btnMenuLvl").onclick = () => { mode="menu"; showAll(); };
 
 canvas.onmousedown = (e) => { if(mode!=="play") return; pressing=true; jump(); };
@@ -788,8 +791,9 @@ function show() {
   document.getElementById("accScreen").className = "overlay" + (mode==="acc"?"":" off");
   document.getElementById("adminScreen").className = "overlay" + (mode==="admin"?"":" off");
   document.getElementById("friendsScreen").className = "overlay" + (mode==="friends"?"":" off");
-  document.getElementById("hud").className = mode==="play"?"":"off";
+  document.getElementById("hud").className = (mode==="play"||(mode==="admin"&&prevMode==="play"))?"":"off";
   document.getElementById("adminBadge").style.display = (mode==="play"&&adminPlay)?"block":"none";
+  document.getElementById("hudAdmin").style.display = (mode==="play"&&adminPlay)?"block":"none";
   document.getElementById("hint").className = "controls-hint" + (mode==="play"?"":" off");
   document.getElementById("mBest").textContent = sv.best+"m";
   const cl = sv.maxLevel!==undefined ? Math.min(sv.maxLevel, LEVELS.length-1) : 0;
