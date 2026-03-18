@@ -367,6 +367,7 @@ function doLogin() {
     users[user] = {pass, isAdmin:false, created:Date.now()};
     saveUsers(users);
     currentUser = {username:user, isAdmin:false};
+    adminPlay=false; resetAdminPowers();
     loadSv();
     mode = "menu";
     showAll();
@@ -382,6 +383,7 @@ function doLogin() {
       return;
     }
     currentUser = {username:user, isAdmin:!!users[user].isAdmin};
+    if(!currentUser.isAdmin) { adminPlay=false; resetAdminPowers(); }
     loadSv();
     mode = "menu";
     showAll();
@@ -391,6 +393,7 @@ function doLogin() {
 
 function doGuest() {
   currentUser = {username:"Misafir", isAdmin:false};
+  adminPlay=false; resetAdminPowers();
   loadSv();
   mode = "menu";
   showAll();
@@ -399,6 +402,8 @@ function doGuest() {
 function doLogout() {
   currentUser = null;
   mode = "login";
+  adminPlay = false;
+  resetAdminPowers();
   document.getElementById("inpUser").value="";
   document.getElementById("inpPass").value="";
   document.getElementById("loginErr").textContent="";
@@ -855,7 +860,9 @@ function update() {
   }
 
   // Yerçekimi
-  pl.vy += invertGrav ? -(lowGrav ? G*0.35 : G) : (lowGrav ? G*0.35 : G);
+  const useInvert = adminPlay && invertGrav;
+  const useLowG = adminPlay && lowGrav;
+  pl.vy += useInvert ? -(useLowG ? G*0.35 : G) : (useLowG ? G*0.35 : G);
 
   // Uzun bas = yüksek zıpla
   if(pressing && pl.vy<0 && performance.now()-pl.jt<200) {
