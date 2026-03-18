@@ -423,15 +423,15 @@ resize();
 window.addEventListener("resize", resize);
 
 // ========== CONSTANTS ==========
-const G = 0.5;
-const JUMP = -11.5;
-const JUMP_HIGH = -14;
+const G = 0.45;
+const JUMP = -12.5;
+const JUMP_HIGH = -15;
 const PW = 50, PH = 58;
 const PLATH = 18;
 const LAVA = 80;
-const BASE_SPD = 2.5;
-const MAX_SPD = 8.5;
-const SPD_INC = 0.0005;
+const BASE_SPD = 2.2;
+const MAX_SPD = 7.5;
+const SPD_INC = 0.0003;
 
 const CHARS = [
   {id:"runner",name:"Koşucu",emoji:"🏃",price:0,   color:"#3b82f6",hair:"#4a2c0a",skin:"#fcd5b0"},
@@ -583,48 +583,48 @@ function init() {
 
 // Bölümler
 const LEVELS = [
-  {num:1,  name:"İlk Adımlar",    target:200, reward:10,  gap:35, gapR:25, minW:130,maxW:190,yVar:35, special:0,    spdMul:0.75},
-  {num:2,  name:"Isınma Turu",    target:200, reward:15,  gap:38, gapR:30, minW:120,maxW:175,yVar:40, special:0.05, spdMul:0.8},
-  {num:3,  name:"Rüzgar Esiyor",  target:200, reward:20,  gap:40, gapR:35, minW:110,maxW:165,yVar:45, special:0.10, spdMul:0.85},
-  {num:4,  name:"Dikkatli Ol",    target:200, reward:25,  gap:43, gapR:38, minW:100,maxW:155,yVar:50, special:0.15, spdMul:0.9},
-  {num:5,  name:"Hızlanan Tempo", target:200, reward:30,  gap:46, gapR:40, minW:95, maxW:145,yVar:55, special:0.20, spdMul:0.95},
-  {num:6,  name:"Tehlikeli Yol",  target:200, reward:35,  gap:48, gapR:45, minW:85, maxW:135,yVar:60, special:0.25, spdMul:1.0},
-  {num:7,  name:"Buz Devri",      target:200, reward:40,  gap:50, gapR:48, minW:80, maxW:125,yVar:65, special:0.30, spdMul:1.03},
-  {num:8,  name:"Lav Fırtınası",  target:200, reward:45,  gap:53, gapR:50, minW:75, maxW:120,yVar:70, special:0.35, spdMul:1.06},
-  {num:9,  name:"Kabus",          target:200, reward:50,  gap:55, gapR:55, minW:70, maxW:110,yVar:75, special:0.40, spdMul:1.1},
-  {num:10, name:"Cehennem",       target:200, reward:60,  gap:58, gapR:58, minW:65, maxW:105,yVar:78, special:0.45, spdMul:1.13},
-  {num:11, name:"Ölüm Koşusu",   target:200, reward:70,  gap:60, gapR:60, minW:60, maxW:100,yVar:80, special:0.50, spdMul:1.16},
-  {num:12, name:"Efsane",         target:200, reward:85,  gap:63, gapR:65, minW:55, maxW:95, yVar:85, special:0.55, spdMul:1.2},
-  {num:13, name:"İmkansız",       target:200, reward:100, gap:66, gapR:68, minW:50, maxW:90, yVar:90, special:0.60, spdMul:1.25},
+  {num:1,  name:"İlk Adımlar",    target:150, reward:10,  gap:25, gapR:15, minW:160,maxW:220,yVar:20, special:0,    spdMul:0.6},
+  {num:2,  name:"Isınma Turu",    target:150, reward:15,  gap:28, gapR:18, minW:150,maxW:210,yVar:25, special:0,    spdMul:0.65},
+  {num:3,  name:"Rüzgar Esiyor",  target:150, reward:20,  gap:30, gapR:20, minW:140,maxW:200,yVar:28, special:0.03, spdMul:0.68},
+  {num:4,  name:"Dikkatli Ol",    target:180, reward:25,  gap:32, gapR:22, minW:130,maxW:190,yVar:30, special:0.05, spdMul:0.72},
+  {num:5,  name:"Hızlanan Tempo", target:180, reward:30,  gap:34, gapR:25, minW:125,maxW:180,yVar:33, special:0.08, spdMul:0.75},
+  {num:6,  name:"Tehlikeli Yol",  target:180, reward:35,  gap:36, gapR:28, minW:118,maxW:170,yVar:36, special:0.10, spdMul:0.78},
+  {num:7,  name:"Buz Devri",      target:180, reward:40,  gap:38, gapR:30, minW:110,maxW:160,yVar:40, special:0.13, spdMul:0.82},
+  {num:8,  name:"Lav Fırtınası",  target:180, reward:45,  gap:40, gapR:32, minW:105,maxW:155,yVar:43, special:0.15, spdMul:0.85},
+  {num:9,  name:"Kabus",          target:200, reward:50,  gap:42, gapR:35, minW:100,maxW:145,yVar:46, special:0.18, spdMul:0.88},
+  {num:10, name:"Cehennem",       target:200, reward:60,  gap:44, gapR:38, minW:95, maxW:140,yVar:50, special:0.20, spdMul:0.92},
+  {num:11, name:"Ölüm Koşusu",   target:200, reward:70,  gap:46, gapR:40, minW:90, maxW:135,yVar:53, special:0.23, spdMul:0.95},
+  {num:12, name:"Efsane",         target:200, reward:85,  gap:48, gapR:42, minW:85, maxW:128,yVar:56, special:0.25, spdMul:0.98},
+  {num:13, name:"İmkansız",       target:200, reward:100, gap:50, gapR:45, minW:80, maxW:120,yVar:60, special:0.28, spdMul:1.02},
   // Bölüm 14-25: İleri seviye
-  {num:14, name:"Fırtına Öncesi", target:250, reward:110, gap:60, gapR:55, minW:55, maxW:100,yVar:85, special:0.50, spdMul:1.28},
-  {num:15, name:"Karanlık Orman", target:250, reward:120, gap:62, gapR:58, minW:50, maxW:95, yVar:88, special:0.55, spdMul:1.30},
-  {num:16, name:"Volkan Ağzı",   target:250, reward:130, gap:64, gapR:60, minW:48, maxW:92, yVar:90, special:0.58, spdMul:1.33},
-  {num:17, name:"Hayalet Köprü",  target:250, reward:140, gap:65, gapR:62, minW:46, maxW:88, yVar:92, special:0.62, spdMul:1.35},
-  {num:18, name:"Yıldız Savaşı",  target:300, reward:150, gap:66, gapR:64, minW:45, maxW:85, yVar:94, special:0.65, spdMul:1.38},
-  {num:19, name:"Kıyamet Günü",   target:300, reward:160, gap:68, gapR:65, minW:44, maxW:82, yVar:95, special:0.68, spdMul:1.40},
-  {num:20, name:"Son Nefes",      target:300, reward:175, gap:70, gapR:68, minW:42, maxW:80, yVar:96, special:0.70, spdMul:1.42},
-  {num:21, name:"Araf",           target:300, reward:190, gap:72, gapR:70, minW:40, maxW:78, yVar:98, special:0.72, spdMul:1.45},
-  {num:22, name:"Ejderha Yuvası", target:350, reward:200, gap:73, gapR:72, minW:38, maxW:75, yVar:100,special:0.75, spdMul:1.48},
-  {num:23, name:"Tanrıların Öfkesi",target:350,reward:220,gap:75, gapR:74, minW:36, maxW:72, yVar:102,special:0.78, spdMul:1.50},
-  {num:24, name:"Kara Delik",     target:400, reward:250, gap:78, gapR:76, minW:35, maxW:70, yVar:105,special:0.80, spdMul:1.53},
-  {num:25, name:"EFSANE KOŞUCU",  target:500, reward:500, gap:80, gapR:80, minW:32, maxW:65, yVar:110,special:0.85, spdMul:1.55},
+  {num:14, name:"Fırtına Öncesi", target:220, reward:110, gap:52, gapR:45, minW:78, maxW:118,yVar:62, special:0.30, spdMul:1.05},
+  {num:15, name:"Karanlık Orman", target:220, reward:120, gap:53, gapR:46, minW:76, maxW:115,yVar:64, special:0.32, spdMul:1.07},
+  {num:16, name:"Volkan Ağzı",   target:230, reward:130, gap:55, gapR:48, minW:74, maxW:112,yVar:66, special:0.34, spdMul:1.10},
+  {num:17, name:"Hayalet Köprü",  target:230, reward:140, gap:56, gapR:50, minW:72, maxW:110,yVar:68, special:0.36, spdMul:1.12},
+  {num:18, name:"Yıldız Savaşı",  target:250, reward:150, gap:57, gapR:52, minW:70, maxW:108,yVar:70, special:0.38, spdMul:1.15},
+  {num:19, name:"Kıyamet Günü",   target:250, reward:160, gap:58, gapR:53, minW:68, maxW:105,yVar:72, special:0.40, spdMul:1.17},
+  {num:20, name:"Son Nefes",      target:260, reward:175, gap:60, gapR:55, minW:66, maxW:102,yVar:74, special:0.42, spdMul:1.20},
+  {num:21, name:"Araf",           target:260, reward:190, gap:61, gapR:56, minW:64, maxW:100,yVar:76, special:0.44, spdMul:1.22},
+  {num:22, name:"Ejderha Yuvası", target:280, reward:200, gap:62, gapR:58, minW:62, maxW:98, yVar:78, special:0.46, spdMul:1.25},
+  {num:23, name:"Tanrıların Öfkesi",target:280,reward:220,gap:64, gapR:60, minW:60, maxW:95, yVar:80, special:0.48, spdMul:1.28},
+  {num:24, name:"Kara Delik",     target:300, reward:250, gap:66, gapR:62, minW:58, maxW:92, yVar:82, special:0.50, spdMul:1.30},
+  {num:25, name:"EFSANE KOŞUCU",  target:350, reward:500, gap:68, gapR:65, minW:55, maxW:88, yVar:85, special:0.52, spdMul:1.33},
   // Bölüm 26-40: Efsane seviye
-  {num:26, name:"Buzul Çağı",     target:300, reward:280, gap:70, gapR:65, minW:40, maxW:75, yVar:95, special:0.72, spdMul:1.45},
-  {num:27, name:"Labirent",       target:300, reward:300, gap:72, gapR:68, minW:38, maxW:72, yVar:98, special:0.75, spdMul:1.48},
-  {num:28, name:"Gölgeler Diyarı",target:350, reward:320, gap:74, gapR:70, minW:36, maxW:70, yVar:100,special:0.78, spdMul:1.50},
-  {num:29, name:"Şimşek Fırtınası",target:350,reward:340, gap:75, gapR:72, minW:35, maxW:68, yVar:102,special:0.80, spdMul:1.52},
-  {num:30, name:"Ölümsüz Savaşçı",target:400, reward:360, gap:76, gapR:74, minW:34, maxW:66, yVar:104,special:0.82, spdMul:1.54},
-  {num:31, name:"Kayıp Dünya",    target:400, reward:380, gap:78, gapR:75, minW:33, maxW:64, yVar:106,special:0.83, spdMul:1.56},
-  {num:32, name:"Zaman Bükücü",   target:400, reward:400, gap:80, gapR:76, minW:32, maxW:62, yVar:108,special:0.84, spdMul:1.58},
-  {num:33, name:"Meteor Yağmuru", target:450, reward:420, gap:82, gapR:78, minW:31, maxW:60, yVar:110,special:0.85, spdMul:1.60},
-  {num:34, name:"Uçurum Kenarı",  target:450, reward:440, gap:83, gapR:80, minW:30, maxW:58, yVar:112,special:0.86, spdMul:1.62},
-  {num:35, name:"Ruhlar Köprüsü", target:500, reward:460, gap:84, gapR:82, minW:30, maxW:56, yVar:114,special:0.87, spdMul:1.64},
-  {num:36, name:"Kaderin Sonu",   target:500, reward:500, gap:85, gapR:84, minW:29, maxW:55, yVar:115,special:0.88, spdMul:1.66},
-  {num:37, name:"Sonsuz Boşluk",  target:550, reward:550, gap:86, gapR:85, minW:28, maxW:54, yVar:116,special:0.89, spdMul:1.68},
-  {num:38, name:"Karanlığın Kalbi",target:550, reward:600, gap:88, gapR:86, minW:28, maxW:52, yVar:118,special:0.90, spdMul:1.70},
-  {num:39, name:"Son Sınav",      target:600, reward:750, gap:90, gapR:88, minW:27, maxW:50, yVar:120,special:0.92, spdMul:1.72},
-  {num:40, name:"TANRI SEVİYESİ", target:666, reward:1000,gap:92, gapR:90, minW:26, maxW:48, yVar:125,special:0.95, spdMul:1.75},
+  {num:26, name:"Buzul Çağı",     target:280, reward:280, gap:62, gapR:55, minW:60, maxW:95, yVar:75, special:0.45, spdMul:1.28},
+  {num:27, name:"Labirent",       target:280, reward:300, gap:63, gapR:56, minW:58, maxW:92, yVar:76, special:0.47, spdMul:1.30},
+  {num:28, name:"Gölgeler Diyarı",target:300, reward:320, gap:64, gapR:58, minW:56, maxW:90, yVar:78, special:0.48, spdMul:1.32},
+  {num:29, name:"Şimşek Fırtınası",target:300,reward:340, gap:65, gapR:60, minW:55, maxW:88, yVar:80, special:0.50, spdMul:1.34},
+  {num:30, name:"Ölümsüz Savaşçı",target:320, reward:360, gap:66, gapR:62, minW:54, maxW:86, yVar:82, special:0.52, spdMul:1.36},
+  {num:31, name:"Kayıp Dünya",    target:320, reward:380, gap:68, gapR:63, minW:52, maxW:84, yVar:83, special:0.53, spdMul:1.38},
+  {num:32, name:"Zaman Bükücü",   target:340, reward:400, gap:70, gapR:64, minW:50, maxW:82, yVar:85, special:0.55, spdMul:1.40},
+  {num:33, name:"Meteor Yağmuru", target:340, reward:420, gap:72, gapR:66, minW:48, maxW:80, yVar:86, special:0.56, spdMul:1.42},
+  {num:34, name:"Uçurum Kenarı",  target:360, reward:440, gap:73, gapR:68, minW:46, maxW:78, yVar:88, special:0.58, spdMul:1.44},
+  {num:35, name:"Ruhlar Köprüsü", target:380, reward:460, gap:74, gapR:70, minW:45, maxW:76, yVar:90, special:0.60, spdMul:1.46},
+  {num:36, name:"Kaderin Sonu",   target:400, reward:500, gap:75, gapR:72, minW:44, maxW:74, yVar:92, special:0.62, spdMul:1.48},
+  {num:37, name:"Sonsuz Boşluk",  target:420, reward:550, gap:76, gapR:73, minW:42, maxW:72, yVar:93, special:0.63, spdMul:1.50},
+  {num:38, name:"Karanlığın Kalbi",target:440, reward:600, gap:78, gapR:74, minW:40, maxW:70, yVar:95, special:0.65, spdMul:1.52},
+  {num:39, name:"Son Sınav",      target:460, reward:750, gap:80, gapR:76, minW:38, maxW:68, yVar:98, special:0.68, spdMul:1.55},
+  {num:40, name:"TANRI SEVİYESİ", target:500, reward:1000,gap:82, gapR:78, minW:36, maxW:65, yVar:100,special:0.70, spdMul:1.58},
 ];
 
 // Bölüm 41-150: Otomatik üret
@@ -658,15 +658,15 @@ for(let i=41; i<=3000; i++) {
   LEVELS.push({
     num: i,
     name: LEVEL_NAMES_POOL[t] + (i>150?" "+Math.ceil((i-40)/LEVEL_NAMES_POOL.length):""),
-    target: Math.floor(100 + progress * 200),
-    reward: Math.floor(120 + progress * 1800),
-    gap: Math.floor(25 + progress * 10),
-    gapR: Math.floor(15 + progress * 15),
-    minW: Math.max(70, Math.floor(150 - progress * 50)),
-    maxW: Math.max(90, Math.floor(210 - progress * 70)),
-    yVar: Math.floor(30 + progress * 35),
-    special: Math.min(0.4, 0.03 + progress * 0.37),
-    spdMul: Math.min(2.0, 0.75 + progress * 1.25),
+    target: Math.floor(100 + progress * 150),
+    reward: Math.floor(150 + progress * 1800),
+    gap: Math.floor(22 + progress * 8),
+    gapR: Math.floor(12 + progress * 12),
+    minW: Math.max(80, Math.floor(160 - progress * 40)),
+    maxW: Math.max(100, Math.floor(220 - progress * 55)),
+    yVar: Math.floor(25 + progress * 28),
+    special: Math.min(0.35, 0.03 + progress * 0.32),
+    spdMul: Math.min(1.8, 0.7 + progress * 1.1),
   });
 }
 
