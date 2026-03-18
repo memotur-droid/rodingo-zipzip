@@ -240,6 +240,7 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
   <button class="admin-btn" id="adm-freeze"><span><span class="ab-icon">❄️</span>Zamanı Dondur</span><span class="ab-val" id="adm-freeze-val">KAPALI</span></button>
   <button class="admin-btn" id="adm-coinmult10"><span><span class="ab-icon">💎</span>Yıldız Çarpanı (x10)</span><span class="ab-val" id="adm-coinmult10-val">KAPALI</span></button>
   <button class="admin-btn" id="adm-invertgrav"><span><span class="ab-icon">🙃</span>Ters Yerçekimi</span><span class="ab-val" id="adm-invert-val">KAPALI</span></button>
+  <button class="admin-btn" id="adm-setdist"><span><span class="ab-icon">📐</span>İstediğin Kadar Metre İlerle</span></button>
   <button class="admin-btn" id="adm-skipbtn"><span><span class="ab-icon">⏭️</span>Bölüm Atla</span></button>
   <button class="admin-btn" id="adm-completeall"><span><span class="ab-icon">🏁</span>Tüm Bölümleri Tamamla</span></button>
   <button class="admin-btn" id="adm-alloff"><span><span class="ab-icon">🔌</span>Tüm Güçleri KAPAT</span></button>
@@ -2374,6 +2375,16 @@ document.getElementById("adm-freeze").onclick=()=>{freezeTime=!freezeTime;render
 document.getElementById("adm-coinmult10").onclick=()=>{coinMult10=!coinMult10;if(coinMult10)coinMult=false;renderAdmin();toast(coinMult10?"💎 Yıldız Çarpanı x10 AÇIK!":"Yıldız Çarpanı x10 kapatıldı");};
 document.getElementById("adm-invertgrav").onclick=()=>{invertGrav=!invertGrav;renderAdmin();toast(invertGrav?"🙃 Ters Yerçekimi AÇIK!":"Ters Yerçekimi kapatıldı");};
 document.getElementById("adm-alloff").onclick=()=>{godMode=false;superJump=false;slowMo=false;superSpeed=false;noClip=false;megaJump=false;autoCoin=false;noDino=false;bigPlat=false;lowGrav=false;coinMult=false;doubleJump=false;permMagnet=false;permShield=false;rainbowPlat=false;miniChar=false;freezeTime=false;coinMult10=false;invertGrav=false;renderAdmin();toast("🔌 Tüm güçler KAPATILDI!");};
+document.getElementById("adm-setdist").onclick=()=>{
+  if(mode!=="play"||!pl) { toast("Önce oyuna başla!"); return; }
+  const lvl=getCurrentLevel();
+  const amount=prompt("Kaç metre ilerlemek istiyorsun?\n(Bölüm hedefi: "+lvl.target+"m, Şu an: "+levelDist+"m)");
+  if(amount===null) return;
+  const num=parseInt(amount);
+  if(isNaN(num)||num<0) { toast("Geçerli bir sayı gir!"); return; }
+  camX+=num*10; dist=Math.floor(camX/10); levelDist=dist;
+  toast("📐 "+num+"m ilerlendi! Toplam: "+dist+"m");
+};
 document.getElementById("adm-skipbtn").onclick=()=>{if(curLevel<LEVELS.length-1){curLevel++;sv.maxLevel=curLevel;saveSv();toast("⏭️ Bölüm "+(curLevel+1)+"'e atlandı!");renderAdmin();}else toast("Son bölümdesin!");};
 document.getElementById("adm-completeall").onclick=()=>{curLevel=LEVELS.length-1;sv.maxLevel=curLevel;let totalReward=0;LEVELS.forEach(l=>totalReward+=l.reward);sv.coins+=totalReward;sv.tCoins+=totalReward;saveSv();renderAdmin();toast("🏁 Tüm bölümler tamamlandı! +"+totalReward+" ⭐");};
 
