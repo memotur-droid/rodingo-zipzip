@@ -705,7 +705,7 @@ function mkPlat(ax, ly, d) {
   const gap = df.gap + Math.random()*df.gapR;
   const x = ax + gap;
   let w = df.minW + Math.random()*(df.maxW-df.minW);
-  if(bigPlat) w *= 2;
+  if(adminPlay && bigPlat) w *= 2;
   let y = ly + (Math.random()-0.5)*df.yVar;
   y = Math.max(H*0.2, Math.min(H-LAVA-50, y));
 
@@ -740,13 +740,13 @@ let pressing = false;
 function jump() {
   if(mode==="play" && pl && pl.alive) {
     if(pl.ground) {
-      pl.vy = megaJump ? JUMP*3 : superJump ? JUMP*1.8 : JUMP;
+      pl.vy = (adminPlay&&megaJump) ? JUMP*3 : (adminPlay&&superJump) ? JUMP*1.8 : JUMP;
       pl.ground = false;
       djUsed = false;
       pl.jt = performance.now();
-      burst(pl.x+PW/2, pl.y+PH, superJump?"#fbbf24":"#fff8", superJump?10:5);
-    } else if(doubleJump && !djUsed) {
-      pl.vy = megaJump ? JUMP*2.5 : superJump ? JUMP*1.5 : JUMP*0.85;
+      burst(pl.x+PW/2, pl.y+PH, (adminPlay&&superJump)?"#fbbf24":"#fff8", (adminPlay&&superJump)?10:5);
+    } else if(adminPlay && doubleJump && !djUsed) {
+      pl.vy = (adminPlay&&megaJump) ? JUMP*2.5 : (adminPlay&&superJump) ? JUMP*1.5 : JUMP*0.85;
       djUsed = true;
       pl.jt = performance.now();
       burst(pl.x+PW/2, pl.y+PH, "#a855f7", 8);
@@ -834,9 +834,9 @@ function update() {
   const lvl = getCurrentLevel();
   spd = Math.min(MAX_SPD, (BASE_SPD + dist*SPD_INC) * df.spdMul);
   let cs = fx.slow>0 ? spd*0.5 : spd;
-  if(freezeTime) cs *= 0.05;
-  else if(slowMo) cs *= 0.4;
-  if(superSpeed) cs *= 2.5;
+  if(adminPlay && freezeTime) cs *= 0.05;
+  else if(adminPlay && slowMo) cs *= 0.4;
+  if(adminPlay && superSpeed) cs *= 2.5;
 
   camX += cs;
   dist = Math.floor(camX/10);
@@ -871,7 +871,7 @@ function update() {
 
   const prevY = pl.y;
   pl.y += pl.vy;
-  if(invertGrav && pl.y < 10) { pl.y = 10; pl.vy = 0; }
+  if(adminPlay && invertGrav && pl.y < 10) { pl.y = 10; pl.vy = 0; }
   pl.ground = false;
 
   // Çarpışma
@@ -917,9 +917,9 @@ function update() {
   }
 
   // Toplanabilirler
-  if(permMagnet) fx.magnet=9999;
-  if(permShield) fx.shield=1;
-  const mag = (fx.magnet>0 || autoCoin) ? (autoCoin?500:140) : 0;
+  if(adminPlay && permMagnet) fx.magnet=9999;
+  if(adminPlay && permShield) fx.shield=1;
+  const mag = (fx.magnet>0 || (adminPlay&&autoCoin)) ? ((adminPlay&&autoCoin)?500:140) : 0;
   for(const c of items) {
     if(c.got) continue;
     if(mag>0) {
@@ -929,7 +929,7 @@ function update() {
     }
     if(Math.abs(pl.x+PW/2-c.x)<30 && Math.abs(pl.y+PH/2-c.y)<30) {
       c.got=true;
-      if(c.type==="star") { let v=1+Math.floor(dist/500); if(coinMult10)v*=10; else if(coinMult)v*=5; rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",8); }
+      if(c.type==="star") { let v=1+Math.floor(dist/500); if(adminPlay&&coinMult10)v*=10; else if(adminPlay&&coinMult)v*=5; rCoins+=v; ftext(c.x,c.y,"+"+v+" ⭐","#fbbf24"); burst(c.x,c.y,"#fbbf24",8); }
       else if(c.type==="shield") { fx.shield=1; ftext(c.x,c.y-20,"🛡️ KALKAN!","#60a5fa"); burst(c.x,c.y,"#3b82f6",15); burst(c.x,c.y,"#60a5fa",10); toast("🛡️ Kalkan aktif — 1 kez lavdan kurtarır!"); }
       else if(c.type==="magnet") { fx.magnet=600; ftext(c.x,c.y-20,"🧲 MIKNATIS!","#f87171"); burst(c.x,c.y,"#ef4444",15); burst(c.x,c.y,"#f87171",10); toast("🧲 Mıknatıs aktif — 10 saniye!"); }
       else if(c.type==="slow") { fx.slow=300; ftext(c.x,c.y-20,"🐌 YAVAŞLA!","#4ade80"); burst(c.x,c.y,"#22c55e",15); burst(c.x,c.y,"#4ade80",10); toast("🐌 Yavaşlama aktif — 5 saniye!"); }
@@ -940,7 +940,7 @@ function update() {
   if(fx.slow>0) fx.slow--;
 
   // NoClip - düşmeyi engelle
-  if(noClip && pl.y+PH > H-LAVA-30) {
+  if(adminPlay && noClip && pl.y+PH > H-LAVA-30) {
     pl.vy = -3;
     pl.y = H-LAVA-PH-30;
     pl.ground = true;
@@ -948,7 +948,7 @@ function update() {
 
   // Lava ölüm
   if(pl.y+PH > H-LAVA) {
-    if(godMode) {
+    if(adminPlay && godMode) {
       pl.vy=JUMP*1.5;
       pl.y=H-LAVA-PH-10;
       burst(pl.x+PW/2,H-LAVA,"#fbbf2480",8);
@@ -978,7 +978,7 @@ function update() {
     } else { die(); return; }
   }
   if(pl.y>H+50) {
-    if(godMode) { pl.y=H*0.3; pl.vy=0; }
+    if(adminPlay && godMode) { pl.y=H*0.3; pl.vy=0; }
     else { die(); return; }
   }
 
@@ -1000,7 +1000,7 @@ function update() {
   texts = texts.filter(f=>f.l>0);
 
   // Dinazor kovalama (5. bölümden sonra)
-  if(curLevel >= 5 && dino && !noDino) {
+  if(curLevel >= 5 && dino && !(adminPlay && noDino)) {
     if(!dino.active) {
       dino.active = true;
       dino.x = -80;
@@ -1027,7 +1027,7 @@ function update() {
 
     // Dinazor oyuncuya değdi mi?
     if(dino.x + 80 > pl.x && dino.x < pl.x + PW) {
-      if(!godMode) {
+      if(!(adminPlay && godMode)) {
         ftext(pl.x, pl.y - 20, "DINAZOR YAKALADI!", "#ef4444");
         burst(pl.x + PW/2, pl.y + PH/2, "#ef4444", 20);
         die();
@@ -1188,7 +1188,7 @@ function draw() {
     if(p.broken||p.x>W+50||p.x+p.w<-50) continue;
     let px=p.x, py=p.y;
     let col = PCOL[p.type]||"#22c55e";
-    if(rainbowPlat) { const hue=(frame*2+p.x*0.5)%360; col="hsl("+hue+",80%,55%)"; }
+    if(adminPlay && rainbowPlat) { const hue=(frame*2+p.x*0.5)%360; col="hsl("+hue+",80%,55%)"; }
 
     if(p.type==="fragile"&&p.t>0) {
       px += (Math.random()-.5)*6;
@@ -1507,7 +1507,7 @@ function draw() {
 
     ctx.save();
     ctx.translate(pcx, pl.y+PH); // ayak dibinden çiz
-    if(miniChar) ctx.scale(0.6, 0.6);
+    if(adminPlay && miniChar) ctx.scale(0.6, 0.6);
 
     // Koşarken hafif eğilme
     if(pl.ground) ctx.rotate(runCycle*0.06);
