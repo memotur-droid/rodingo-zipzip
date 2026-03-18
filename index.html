@@ -750,9 +750,10 @@ function jump() {
 }
 
 let adminPlay = false;
-document.getElementById("btnPlay").onclick = () => { adminPlay=false; godMode=false; superJump=false; slowMo=false; curLevel=sv.maxLevel||0; mode="play"; init(); showAll(); };
+function resetAdminPowers() { godMode=false; superJump=false; slowMo=false; superSpeed=false; noClip=false; megaJump=false; autoCoin=false; noDino=false; bigPlat=false; lowGrav=false; coinMult=false; doubleJump=false; permMagnet=false; permShield=false; rainbowPlat=false; miniChar=false; freezeTime=false; coinMult10=false; invertGrav=false; }
+document.getElementById("btnPlay").onclick = () => { adminPlay=false; resetAdminPowers(); curLevel=sv.maxLevel||0; mode="play"; init(); showAll(); };
 document.getElementById("btnPlayAdmin").onclick = () => { adminPlay=true; mode="play"; init(); showAll(); };
-document.getElementById("btnRetry").onclick = () => { mode="play"; curLevel=sv.maxLevel||0; init(); showAll(); };
+document.getElementById("btnRetry").onclick = () => { if(!adminPlay) resetAdminPowers(); mode="play"; curLevel=sv.maxLevel||0; init(); showAll(); };
 document.getElementById("btnMenu").onclick = () => { mode="menu"; showAll(); };
 document.getElementById("btnShop").onclick = () => { mode="shop"; renderShop(); showAll(); };
 document.getElementById("btnAcc").onclick = () => { mode="acc"; renderAcc(); showAll(); };
