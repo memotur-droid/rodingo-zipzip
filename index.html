@@ -563,7 +563,7 @@ function init() {
   fx = {shield:0, magnet:0, slow:0};
   hintTimer = 180;
   lastDiffName = "";
-  if(curLevel===undefined) curLevel = 0;
+  if(curLevel===undefined) curLevel = sv.maxLevel||0;
   levelDist = 0;
   finishSpawned = false;
   dino = {x:-80, speed:0, frame:0, roar:0, active:false};
@@ -1017,7 +1017,12 @@ function update() {
   }
 }
 
+let levelCompleting = false;
 function completeLevel() {
+  if(levelCompleting) return;
+  levelCompleting = true;
+  mode = "levelup"; // Hemen oyunu durdur
+
   const lvl = getCurrentLevel();
   const reward = lvl.reward + rCoins;
 
@@ -1049,7 +1054,7 @@ function completeLevel() {
   burst(W/2, H/2, "#22c55e", 20);
 
   setTimeout(()=>{
-    mode = "levelup";
+    levelCompleting = false;
     showAll();
   }, 600);
 }
