@@ -219,7 +219,11 @@ canvas{display:block;position:absolute;top:0;left:0;width:100%;height:100%}
   <button class="admin-btn" id="adm-unlockall"><span><span class="ab-icon">🏆</span>HER ŞEYİ AÇ</span></button>
 
   <div class="admin-section">📍 Bölüm</div>
-  <select class="admin-select" id="adm-level"></select>
+  <div id="adm-level-info" style="font-size:13px;color:#22c55e;font-weight:600;margin:4px 0 6px;width:90%;max-width:400px"></div>
+  <div style="display:flex;gap:8px;width:90%;max-width:400px;margin-bottom:8px">
+    <input class="login-input" id="adm-level" type="number" min="1" max="30000" placeholder="Bölüm numarası (1-30000)" style="flex:1;margin:0">
+    <button class="admin-btn" id="adm-level-go" style="width:auto;margin:0;white-space:nowrap;padding:10px 16px"><span>🚀 Git</span></button>
+  </div>
 
   <div class="admin-section">🎮 Oyun İçi</div>
   <button class="admin-btn" id="adm-godmode"><span><span class="ab-icon">🛡️</span>Tanrı Modu (Ölümsüz)</span><span class="ab-val" id="adm-god-val">KAPALI</span></button>
@@ -665,9 +669,9 @@ const LEVEL_NAMES_POOL = [
   "Son Efsane","Sonsuz Döngü","Evrenin Sonu","Büyük Patlama","MUTLAK GÜÇ",
 ];
 
-for(let i=41; i<=3000; i++) {
+for(let i=41; i<=30000; i++) {
   const t = (i-41) % LEVEL_NAMES_POOL.length;
-  const progress = Math.min(1, (i-40)/2960); // 0..1
+  const progress = Math.min(1, (i-40)/29960); // 0..1
   LEVELS.push({
     num: i,
     name: LEVEL_NAMES_POOL[t] + (i>150?" "+Math.ceil((i-40)/LEVEL_NAMES_POOL.length):""),
@@ -2281,14 +2285,11 @@ function renderAdmin() {
 
   // Bölüm seçici
   const sel = document.getElementById("adm-level");
-  sel.innerHTML = "";
-  LEVELS.forEach((l,i)=>{
-    const o = document.createElement("option");
-    o.value = i;
-    o.textContent = "Bölüm "+l.num+" — "+l.name;
-    if(i===(curLevel||0)) o.selected=true;
-    sel.appendChild(o);
-  });
+  const cl = curLevel||0;
+  const clvl = LEVELS[Math.min(cl, LEVELS.length-1)];
+  sel.value = cl+1;
+  sel.placeholder = "Bölüm numarası (1-"+LEVELS.length+")";
+  document.getElementById("adm-level-info").textContent = "Şu an: Bölüm "+clvl.num+" — "+clvl.name;
 
   // Ban listesi
   renderBanList();
@@ -2357,7 +2358,12 @@ document.getElementById("adm-unlockall").onclick=()=>{
 };
 
 // Bölüm
-document.getElementById("adm-level").onchange=(e)=>{curLevel=parseInt(e.target.value);toast("Bölüm "+(curLevel+1)+" seçildi!");};
+document.getElementById("adm-level-go").onclick=()=>{
+  const val=parseInt(document.getElementById("adm-level").value);
+  if(isNaN(val)||val<1||val>LEVELS.length) { toast("1-"+LEVELS.length+" arası bir bölüm gir!"); return; }
+  curLevel=val-1; sv.maxLevel=Math.max(sv.maxLevel||0,curLevel); saveSv();
+  toast("🚀 Bölüm "+val+" — "+LEVELS[curLevel].name+" seçildi!"); renderAdmin();
+};
 
 // Oyun içi
 document.getElementById("adm-godmode").onclick=()=>{godMode=!godMode;renderAdmin();toast(godMode?"🛡️ Tanrı Modu AÇIK — Ölümsüzsün!":"Tanrı Modu kapatıldı");};
