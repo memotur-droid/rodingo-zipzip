@@ -528,11 +528,12 @@ function getSaveKey() {
 }
 function loadSv() {
   try { sv = JSON.parse(localStorage.getItem(getSaveKey())); if(!sv||!sv.best&&sv.best!==0) throw 0; }
-  catch { sv = {best:0,coins:100,tCoins:100,chars:["runner"],selChar:"runner",themes:["lava"],selTheme:"lava",ach:[],accs:[],selAcc:{hat:"",glass:"",cape:"",extra:"",outfit:""}}; }
+  catch { sv = {best:0,coins:100,tCoins:100,chars:["runner"],selChar:"runner",themes:["lava"],selTheme:"lava",ach:[],accs:[],selAcc:{hat:"",glass:"",cape:"",extra:"",outfit:""},maxLevel:0}; }
   if(!sv.accs) sv.accs=[];
   if(!sv.selAcc) sv.selAcc={hat:"",glass:"",cape:"",extra:"",outfit:""};
   if(sv.selAcc.outfit===undefined) sv.selAcc.outfit="";
   if(!sv.friends) sv.friends=[];
+  if(sv.maxLevel===undefined) sv.maxLevel=0;
 }
 function saveSv() { localStorage.setItem(getSaveKey(), JSON.stringify(sv)); }
 sv = {best:0,coins:100,tCoins:100,chars:["runner"],selChar:"runner",themes:["lava"],selTheme:"lava",ach:[],accs:[],selAcc:{hat:"",glass:"",cape:"",extra:"",outfit:""}};
@@ -725,9 +726,9 @@ function jump() {
 }
 
 let adminPlay = false;
-document.getElementById("btnPlay").onclick = () => { adminPlay=false; godMode=false; superJump=false; slowMo=false; curLevel=0; mode="play"; init(); showAll(); };
+document.getElementById("btnPlay").onclick = () => { adminPlay=false; godMode=false; superJump=false; slowMo=false; curLevel=sv.maxLevel||0; mode="play"; init(); showAll(); };
 document.getElementById("btnPlayAdmin").onclick = () => { adminPlay=true; mode="play"; init(); showAll(); };
-document.getElementById("btnRetry").onclick = () => { mode="play"; init(); showAll(); };
+document.getElementById("btnRetry").onclick = () => { mode="play"; curLevel=sv.maxLevel||0; init(); showAll(); };
 document.getElementById("btnMenu").onclick = () => { mode="menu"; showAll(); };
 document.getElementById("btnShop").onclick = () => { mode="shop"; renderShop(); showAll(); };
 document.getElementById("btnAcc").onclick = () => { mode="acc"; renderAcc(); showAll(); };
@@ -773,7 +774,7 @@ function show() {
   document.getElementById("adminBadge").style.display = (mode==="play"&&adminPlay)?"block":"none";
   document.getElementById("hint").className = "controls-hint" + (mode==="play"?"":" off");
   document.getElementById("mBest").textContent = sv.best+"m";
-  const cl = curLevel!==undefined ? Math.min(curLevel, LEVELS.length-1) : 0;
+  const cl = sv.maxLevel!==undefined ? Math.min(sv.maxLevel, LEVELS.length-1) : 0;
   const clvl = LEVELS[cl];
   document.getElementById("mLevel").textContent = "Bölüm " + clvl.num + " — " + clvl.name;
 }
@@ -1042,6 +1043,7 @@ function completeLevel() {
   }
 
   curLevel = nextIdx;
+  if(curLevel > (sv.maxLevel||0)) { sv.maxLevel = curLevel; saveSv(); }
 
   burst(W/2, H/2, "#fbbf24", 30);
   burst(W/2, H/2, "#22c55e", 20);
